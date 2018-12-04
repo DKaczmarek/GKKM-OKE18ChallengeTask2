@@ -1,5 +1,6 @@
 import logging
 import time
+import os
 
 import CRFModule.rdfparser.rdf2samples
 import CRFModule.crftools.trainer
@@ -23,7 +24,14 @@ DATAPATH_TASK1 = './data/oke17task1Training.xml.ttl'
 DATAPATH_TASK2 = './data/oke17task2Training.xml.ttl'
 DATAPATH_TASKALL = './data/oke17taskAll.ttl'
 
+
+def create_tmp_dir():
+    if not os.path.exists('tmp'):
+        os.makedirs('tmp')
+
+
 if __name__ == '__main__':
+    create_tmp_dir()
 
     start_time = time.time()
     logger.info('converting rdf graph to samples...')
