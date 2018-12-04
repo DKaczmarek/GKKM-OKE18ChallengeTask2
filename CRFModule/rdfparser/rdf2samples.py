@@ -70,6 +70,6 @@ def run_process(graph_file_path, output_json_path):
 
 
 if __name__ == '__main__':
-    JSON_GRAPH = '/home/dkaczmarek/kodi/semvii/zti_oke/data/samples_graph.json'
+    JSON_GRAPH = './tmp/samples_graph.json'
     DATAPATH_TASKALL = './data/oke17taskAll.ttl'
     run_process(DATAPATH_TASKALL, JSON_GRAPH)
