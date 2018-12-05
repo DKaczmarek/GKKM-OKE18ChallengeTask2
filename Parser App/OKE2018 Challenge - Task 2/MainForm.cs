@@ -26,29 +26,31 @@ namespace OKE2018_Challenge___Task_2
         private void Btn_Parse_Click(object sender, EventArgs e)
         {
 
-            // Loading english PCFG parser from file
-            var lp = LexicalizedParser.loadModel(Environment.CurrentDirectory + @"\englishPCFG.ser");
+            //// Loading english PCFG parser from file
+            //var lp = LexicalizedParser.loadModel(Environment.CurrentDirectory + @"\englishPCFG.ser");
 
-            // This option shows loading and using an explicit tokenizer
+            //// This option shows loading and using an explicit tokenizer
             var sent2 = InputTextBox.Text;
-            var tokenizerFactory = PTBTokenizer.factory(new CoreLabelTokenFactory(), "");
-            var sent2Reader = new StringReader(sent2);
-            var rawWords2 = tokenizerFactory.getTokenizer(sent2Reader).tokenize();
-            sent2Reader.close();
-            var tree2 = lp.apply(rawWords2);
+            //var tokenizerFactory = PTBTokenizer.factory(new CoreLabelTokenFactory(), "");
+            //var sent2Reader = new StringReader(sent2);
+            //var rawWords2 = tokenizerFactory.getTokenizer(sent2Reader).tokenize();
+            //sent2Reader.close();
+            //var tree2 = lp.apply(rawWords2);
 
-            // Extract dependencies from lexical tree
-            var tlp = new PennTreebankLanguagePack();
-            var gsf = tlp.grammaticalStructureFactory();
-            var gs = gsf.newGrammaticalStructure(tree2);
-            var tdl = gs.typedDependenciesCCprocessed();
-            Console.WriteLine("\n{0}\n", tdl);
-            //OutputTextbox.Text = tdl.ToString();
+            //// Extract dependencies from lexical tree
+            //var tlp = new PennTreebankLanguagePack();
+            //var gsf = tlp.grammaticalStructureFactory();
+            //var gs = gsf.newGrammaticalStructure(tree2);
+            //var tdl = gs.typedDependenciesCCprocessed();
+            //Console.WriteLine("\n{0}\n", tdl);
+            ////OutputTextbox.Text = tdl.ToString();
 
-            // Extract collapsed dependencies from parsed tree
-            var tp = new TreePrint("penn,typedDependenciesCollapsed");
-            tp.printTree(tree2);
-            OutputTextbox.Text = tree2.ToString();
+            //// Extract collapsed dependencies from parsed tree
+            //var tp = new TreePrint("penn,typedDependenciesCollapsed");
+            //tp.printTree(tree2);
+            ParserController parser = new ParserController();
+            var jsons = parser.Parse(sent2).ToArray();
+            OutputTextbox.Text = jsons[0];
         }
 
         private void Btn_FileOpen_Click(object sender, EventArgs e)

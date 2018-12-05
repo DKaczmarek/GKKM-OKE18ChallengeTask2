@@ -14,6 +14,7 @@ namespace OKE2018_Challenge___Task_2
         [STAThread]
         static void Main()
         {
+            ParserController p = new ParserController();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Main_Form());
