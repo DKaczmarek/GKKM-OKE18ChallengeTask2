@@ -33,19 +33,19 @@ def reload_mode():
 @main.route("/crf/predict", methods=["GET"])
 def get_tags():
     json_body = flask.request.get_json()
-    print(json_body)
-
     # json_dict = json.loads(json_body)
     # print(json_dict)
 
-    feature = word2features2predict(json_body)
-    result = crftagger.tag([feature])
-    json_body['label'] = result[0]
-
-    # print(json_body)
-
-    json_response = json_body
+    json_response = prepare_samples(json_body)
     return json.dumps(str(json_response)), 200
+
+
+def prepare_samples(json_body):
+    features = {sample_key: word2features2predict(json_body[sample_key]) for sample_key in json_body}
+    results = {sample_key: crftagger.tag([json_body[sample_key]]) for sample_key in features}
+    for sample_key, label_key in zip(json_body, results):
+        json_body[sample_key]['label'] = results[label_key][0]
+    return json_body
 
 
 def reload_crf_model(model_path):
