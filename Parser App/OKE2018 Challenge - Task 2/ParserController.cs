@@ -110,10 +110,10 @@ namespace OKE2018_Challenge___Task_2
                 }
                 else
                 {
+                    Dictionary<int, object> pomDictionary = new Dictionary<int, object>();
                     if (flag == 1)
                     {
-                        entities.Add(pomList[i]);
-                        Dictionary<int, object> pomDictionary = new Dictionary<int, object>();
+                        entities.Add(pomList[i]);                        
                         int j = 0;
                         foreach(var val in entities)
                         {
@@ -128,9 +128,11 @@ namespace OKE2018_Challenge___Task_2
                     }
                     else
                     {
-                        JSONresult = JsonConvert.SerializeObject(pomList[i]);
+                        pomDictionary.Add(0, pomList[i]);
+                        JSONresult = JsonConvert.SerializeObject(pomDictionary);
                         JSONresult = JSONresult.Replace(":{\"word\":null,\"tag\":null,\"placeInSentence\":null}", ":{}");
                         JSONs.Add(JSONresult);
+                        pomDictionary.Clear();
                     }
                     flag = 0;
                 }
