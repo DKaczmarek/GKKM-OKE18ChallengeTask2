@@ -15,9 +15,21 @@ def pos_tags_to_string(list_of_pos_tags):
 
 # aim to create triples (word, pos-tag, class)
 def create_samples(json_graph_path, output=SAMPLES):
+
+    # check nltk dependencies
+    try:
+        nltk.data.find('tokenizers/punkt')
+    except LookupError:
+        nltk.download('punkt')
+
+    try:
+        nltk.data.find('averaged_perceptron_tagger')
+    except LookupError:
+        nltk.download('averaged_perceptron_tagger')
+
     json_body = json.load(open(json_graph_path, 'rb'))
 
-    with open(output, 'w+') as samples_file:
+    with open(output, 'w+', encoding='utf-8') as samples_file:
 
         sentence_list = []
         for sentence in json_body:
@@ -58,15 +70,12 @@ def create_samples(json_graph_path, output=SAMPLES):
             for word in pos_tags:
                 if prepared_tokens_pointer == length_of_prepared_tokens:
                     sentence_list.append((word[0], word[1], 'O'))
-                    # samples_file.write(str((word[0], word[1], 'O')) + '\n')
                 elif word[0] == prepared_tokens[prepared_tokens_pointer][0]:
                     label = prepared_tokens[prepared_tokens_pointer][2]
                     sentence_list.append((word[0], word[1], label))
-                    # samples_file.write(str((word[0], word[1], label)) + '\n')
                     prepared_tokens_pointer += 1
                 else:
                     sentence_list.append((word[0], word[1], 'O'))
-                    # samples_file.write(str((word[0], word[1], 'O')) + '\n')
 
             samples_file.write(str(sentence_list) + '\n')
             sentence_list = []
