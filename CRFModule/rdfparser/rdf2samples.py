@@ -40,7 +40,7 @@ def run_process(graph_file_path, output_json_path):
     ontology_namespace = 'http://dbpedia.org/ontology/'
 
     updated_graph = []
-    finded_label = None
+    found_label = None
     for i in range(len(g)):
         updated_entities = {'sentence': str(g[i].sentence), 'words': []}
         for e in g[i].associated_entities:
@@ -49,17 +49,22 @@ def run_process(graph_file_path, output_json_path):
                                                   'begin': e[2], 'end': e[3],
                                                   'label': 'UNE'})
             else:
-                for value in sparql.get_type_from_resource(e[1])['results']['bindings']:
-                    parsed_value = value['type']['value'].replace(ontology_namespace, '')
-                    if parsed_value in sparql.list_of_superclass:
-                        finded_label = parsed_value
-                        break
-                    else:
-                        finded_label = 'UNE'
-
+                types = sparql.get_type_from_resource(e[1])['results']['bindings']
+                print(types)
+                if types is not None:
+                    for value in types:
+                        parsed_value = value['type']['value'].replace(ontology_namespace, '')
+                        if parsed_value in sparql.list_of_superclass:
+                            found_label = parsed_value
+                            break
+                        else:
+                            found_label = 'UNE'
+                else:
+                    found_label = 'UNE'
+                        
                 updated_entities['words'].append({'value': e[0], 'uri': e[1],
                                                   'begin': e[2], 'end': e[3],
-                                                  'label': finded_label})
+                                                  'label': found_label})
 
         print('{0} of {1} loaded sentences'.format(str(i), str(all_g)))
         updated_graph.append(updated_entities)
