@@ -21,5 +21,13 @@ To run CRFModule using bash:
 cd CRFModule
 python3 setup.py
 # wait until process ends
-python3 crfserving_app
+python3 crfserving_app.py
+```
+
+To run CRFModule on windows:
+```cmd
+cd CRFModule
+windows-run.bat /full/path/to/folder/CRFModule setup.py
+# wait until process ends
+windows-run.bat /full/path/to/folder/CRFModule crfserving_app
 ```

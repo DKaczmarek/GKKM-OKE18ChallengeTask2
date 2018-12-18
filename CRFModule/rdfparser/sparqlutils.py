@@ -22,12 +22,17 @@ list_of_superclass = ['Activity',
 
 
 def get_type_from_resource(resource_name):
-    formated_name = replace_whitespaces(resource_name)
-    type_query = return_type_sparql_query(formated_name)
-    SPARQL.setQuery(type_query)
-    SPARQL.setReturnFormat(JSON)
-    results = SPARQL.query().convert()
-    return results
+    try:
+        formated_name = replace_whitespaces(resource_name)
+        type_query = return_type_sparql_query(formated_name)
+        SPARQL.setQuery(type_query)
+        SPARQL.setReturnFormat(JSON)
+        results = SPARQL.query().convert()
+        return results
+    except TimeoutError:
+        return None
+    except:
+        return None
 
 
 def replace_whitespaces(name):

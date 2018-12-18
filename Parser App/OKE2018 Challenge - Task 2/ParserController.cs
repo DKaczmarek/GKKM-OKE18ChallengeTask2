@@ -12,6 +12,7 @@ using Console = System.Console;
 using System.Reflection;
 using Newtonsoft.Json;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace OKE2018_Challenge___Task_2
 {
@@ -20,6 +21,7 @@ namespace OKE2018_Challenge___Task_2
         private const string fileName = "wsj-0-18-bidirectional-nodistsim.tagger";
         private const BindingFlags bindFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static;
         private MaxentTagger tagger;
+        private Regex regex = new Regex(@"(?!\.)(?!\ )\W");
         public ParserController()
         {
             tagger = new MaxentTagger(Path.Combine(Environment.CurrentDirectory, @"Model\", fileName));
@@ -27,10 +29,12 @@ namespace OKE2018_Challenge___Task_2
 
         public List <string> Parse(string text)
         {
+            text = regex.Replace(text, " ");
+
             List<string> JSONs = new List<string>();
             List<Entity> listOfWords = new List<Entity>();
             var sentences = MaxentTagger.tokenizeText(new java.io.StringReader(text)).toArray();
-
+            
             foreach (ArrayList sentence in sentences)
             {
                 var taggedSentence = tagger.tagSentence(sentence);
@@ -75,7 +79,9 @@ namespace OKE2018_Challenge___Task_2
                                 pom2.placeInSentence = "EOS";
                             else
                                 pom2.placeInSentence = "MOS";
-                            e.wordAfter = pom2;
+
+                            if(pom2.word != ".")
+                                e.wordAfter = pom2;
                         }
 
                         if (e.wordAfter.word != null && e.wordBefore.word != null)
@@ -104,19 +110,29 @@ namespace OKE2018_Challenge___Task_2
                 }
                 else
                 {
+                    Dictionary<int, object> pomDictionary = new Dictionary<int, object>();
                     if (flag == 1)
                     {
-                        entities.Add(pomList[i]);
-                        JSONresult = JsonConvert.SerializeObject(entities);
+                        entities.Add(pomList[i]);                        
+                        int j = 0;
+                        foreach(var val in entities)
+                        {
+                            pomDictionary.Add(j, val);
+                            j++;
+                        }
+                        JSONresult = JsonConvert.SerializeObject(pomDictionary);
                         JSONresult = JSONresult.Replace(":{\"word\":null,\"tag\":null,\"placeInSentence\":null}", ":{}");
                         JSONs.Add(JSONresult);
                         entities.Clear();
+                        pomDictionary.Clear();
                     }
                     else
                     {
-                        JSONresult = JsonConvert.SerializeObject(pomList[i]);
+                        pomDictionary.Add(0, pomList[i]);
+                        JSONresult = JsonConvert.SerializeObject(pomDictionary);
                         JSONresult = JSONresult.Replace(":{\"word\":null,\"tag\":null,\"placeInSentence\":null}", ":{}");
                         JSONs.Add(JSONresult);
+                        pomDictionary.Clear();
                     }
                     flag = 0;
                 }
