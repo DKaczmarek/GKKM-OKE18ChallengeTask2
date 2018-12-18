@@ -21,6 +21,8 @@ namespace OKE2018_Challenge___Task_2
 {
     public partial class Main_Form : Form
     {
+        Context context;
+
         public Main_Form()
         {
             InitializeComponent();
@@ -79,10 +81,9 @@ namespace OKE2018_Challenge___Task_2
 
         }
 
+
         private void Btn_FileOpen_Click(object sender, EventArgs e)
         {
-            Sentence sentence = new Sentence("", "", "", 1, 2, "", "");
-
             String fileContent, filePath, filextension;
             fileContent = filePath = filextension = String.Empty;
             try
@@ -106,15 +107,11 @@ namespace OKE2018_Challenge___Task_2
                             {
                                 case ".txt":
                                     fileContent = reader.ReadToEnd();
+                                    context = new Context(fileContent);
                                     break;
-                                case ".rdf":
-                                    fileContent = File_Parse(reader.ReadToEnd());
-                                    break;
-                                case ".ttl":
-                                    fileContent = File_Parse(reader.ReadToEnd());
-                                    break;
-                                case ".xml":
-                                    fileContent = File_Parse(reader.ReadToEnd());
+                                case ".rdf": case ".ttl": case ".xml":
+                                    context = new Context(reader);
+                                    fileContent = context.isString;
                                     break;
                                 default:
                                     MessageBox.Show("Incorrect file extension.", "Error");
@@ -122,69 +119,40 @@ namespace OKE2018_Challenge___Task_2
                                     break;
                             }
                         }
-
+                        BtnSaveResults.Enabled = true;
                         InputTextBox.Text = fileContent;
                     }
                 }
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Incorrect file content.", "Error");
-                Btn_FileOpen_Click(sender, e);
+                InputTextBox.Text = null;
+                BtnSaveResults.Enabled = false;
             }
         }
 
-        private String File_Parse(String fileContent)
+        private void BtnSaveResults_Click(object sender, EventArgs e)
         {
-            String isStringStart = "nif:isString";
-            String isStringEnd = "\"^^xsd:string";
-            int parseFrom = fileContent.IndexOf(isStringStart) + isStringStart.Length;
-            int parseTo = fileContent.LastIndexOf(isStringEnd) - parseFrom;
-            String isString = fileContent.Substring(parseFrom, parseTo);
-
-            parseFrom = isString.IndexOf(" \"") + 2;
-            parseTo = isString.Length - parseFrom;
-            isString = isString.Substring(parseFrom, parseTo);
-            return isString;
-        }
-
-        public class Sentence
-        {
-            /// <summary>
-            /// <http://www.ontologydesignpatterns.org/data/oke-challenge-2017/task-1/sentence-28#char=303,320>
-            /// </summary>
-            public String uri;
-            /// <summary>
-            ///  nif:RFC5147String , nif:String , nif:Phrase ;
-            /// </summary>
-            public String a;
-            /// <summary>
-            /// "Captain Boomerang"^^xsd:string ;
-            /// </summary>
-            public String anchorOf;
-            /// <summary>
-            /// "303"^^xsd:nonNegativeInteger ;
-            /// </summary>
-            public String beginIndex;
-            /// <summary>
-            /// "320"^^xsd:nonNegativeInteger ;
-            /// </summary>
-            public String endIndex;
-            /// <summary>
-            /// <http://www.ontologydesignpatterns.org/data/oke-challenge-2017/task-1/sentence-28#char=0,472> ;
-            /// </summary>
-            public String referenceContext;
-            /// <summary>
-            /// <http://dbpedia.org/resource/Captain_Boomerang> .
-            /// </summary>
-            public String taIdentRef;
-
-            public Sentence(String uri, String a, String anchorOf, int beginIndex, int endIndex, String referenceContext, String taIdentRef)
+            try
             {
-                StringBuilder sb = new StringBuilder();
-                this.beginIndex = sb.Append("\"").Append(beginIndex).Append("\"^^xsd:nonNegativeInteger ;").ToString();
-                this.endIndex = sb.Clear().Append("\"").ToString();
+                Phrase phrase1 = new Phrase(context, "test1", 2, 12, "www.dbpedia.org/test1");
+                Phrase phrase2 = new Phrase(context, "test2", 15, 29, "www.dbpedia.org/test2");
+
+                List<Phrase> phrases = new List<Phrase>()
+                {
+                    phrase1,phrase2
+                };
+
+                String output = FileBuilder.BuildOutput(context, phrases);
+                using (System.IO.StreamWriter outputFile = new System.IO.StreamWriter(System.IO.Path.Combine(Environment.CurrentDirectory, "ExampleOutput.ttl")))
+                {
+                    outputFile.WriteLine(output);
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
     }

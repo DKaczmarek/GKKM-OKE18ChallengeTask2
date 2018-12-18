@@ -34,6 +34,7 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.Btn_FileOpen = new System.Windows.Forms.Button();
+            this.BtnSaveResults = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
@@ -84,27 +85,39 @@
             // 
             // tableLayoutPanel2
             // 
-            this.tableLayoutPanel2.ColumnCount = 2;
+            this.tableLayoutPanel2.ColumnCount = 3;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 87F));
             this.tableLayoutPanel2.Controls.Add(this.Btn_Parse, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.Btn_FileOpen, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.BtnSaveResults, 2, 0);
             this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 158);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(218, 26);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(263, 26);
             this.tableLayoutPanel2.TabIndex = 3;
             // 
             // Btn_FileOpen
             // 
-            this.Btn_FileOpen.Location = new System.Drawing.Point(112, 3);
+            this.Btn_FileOpen.Location = new System.Drawing.Point(91, 3);
             this.Btn_FileOpen.Name = "Btn_FileOpen";
             this.Btn_FileOpen.Size = new System.Drawing.Size(75, 20);
             this.Btn_FileOpen.TabIndex = 3;
             this.Btn_FileOpen.Text = "Open File";
             this.Btn_FileOpen.UseVisualStyleBackColor = true;
             this.Btn_FileOpen.Click += new System.EventHandler(this.Btn_FileOpen_Click);
+            // 
+            // BtnSaveResults
+            // 
+            this.BtnSaveResults.Location = new System.Drawing.Point(179, 3);
+            this.BtnSaveResults.Name = "BtnSaveResults";
+            this.BtnSaveResults.Size = new System.Drawing.Size(75, 20);
+            this.BtnSaveResults.TabIndex = 4;
+            this.BtnSaveResults.Text = "Save results";
+            this.BtnSaveResults.UseVisualStyleBackColor = true;
+            this.BtnSaveResults.Click += new System.EventHandler(this.BtnSaveResults_Click);
             // 
             // Main_Form
             // 
@@ -129,6 +142,7 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.Button Btn_FileOpen;
+        private System.Windows.Forms.Button BtnSaveResults;
     }
 }
 
