@@ -41,10 +41,10 @@ def get_tags():
 
 
 def prepare_samples(json_body):
-    features = {sample_key: word2features2predict(json_body[sample_key]) for sample_key in json_body}
-    results = {sample_key: crftagger.tag([json_body[sample_key]]) for sample_key in features}
-    for sample_key, label_key in zip(json_body, results):
-        json_body[sample_key]['label'] = results[label_key][0]
+    features = [word2features2predict(json_body[sample_key]) for sample_key in json_body]
+    results = crftagger.tag(features)
+    for sample_key, label in zip(json_body, results):
+        json_body[sample_key]['label'] = label
     return json_body
 
 

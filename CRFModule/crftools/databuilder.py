@@ -10,6 +10,7 @@ def word2features(sent, i):
         'word.isupper': word.isupper(),
         'word.istitle': word.istitle(),
         'word.isdigit': word.isdigit(),
+        'word.tail': word[-3:],
         'postag=': postag
     }
     if i > 0:
@@ -20,6 +21,7 @@ def word2features(sent, i):
             '-1:word.istitle': word1.istitle(),
             '-1:word.isupper': word1.isupper(),
             '-1:word.isdigit': word1.isdigit(),
+            '-1:word.tail': word1[-3:],
             '-1:postag': postag1
         })
     else:
@@ -33,6 +35,7 @@ def word2features(sent, i):
             '+1:word.istitle': word1.istitle(),
             '+1:word.isupper': word1.isupper(),
             '+1:word.isdigit': word1.isdigit(),
+            '+1:word.tail': word1[-3:],
             '+1:postag': postag1
         })
     else:
@@ -54,6 +57,7 @@ def word2features2predict(sent):
         'word.isupper': word.isupper(),
         'word.istitle': is_title(sent['placeInSentence']),
         'word.isdigit': word.isdigit(),
+        'word.tail': word[-3:],
         'postag=': postag
     }
     if len(sent['wordBefore']) > 0:
@@ -65,6 +69,7 @@ def word2features2predict(sent):
             '-1:word.istitle': is_title(sent['wordBefore']['placeInSentence']),
             '-1:word.isupper': word1.isupper(),
             '-1:word.isdigit': word1.isdigit(),
+            '-1:word.tail': word1[-3:],
             '-1:postag': postag1
         })
     else:
@@ -78,6 +83,7 @@ def word2features2predict(sent):
             '+1:word.istitle': is_title(sent['wordAfter']['placeInSentence']),
             '+1:word.isupper': word1.isupper(),
             '+1:word.isdigit': word1.isdigit(),
+            '+1:word.tail': word1[-3:],
             '+1:postag': postag1
         })
     else:
