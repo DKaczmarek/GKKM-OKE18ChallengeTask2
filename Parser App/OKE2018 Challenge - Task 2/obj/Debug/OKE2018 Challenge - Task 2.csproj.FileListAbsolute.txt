@@ -82,3 +82,16 @@ C:\Users\Konrad Michalak\Desktop\OKE2018 Challenge - Task 2\OKE2018 Challenge - 
 C:\Users\Konrad Michalak\Desktop\OKE2018 Challenge - Task 2\OKE2018 Challenge - Task 2\obj\Debug\OKE2018 Challenge - Task 2.csproj.CopyComplete
 C:\Users\Konrad Michalak\Desktop\OKE2018 Challenge - Task 2\OKE2018 Challenge - Task 2\obj\Debug\OKE2018 Challenge - Task 2.exe
 C:\Users\Konrad Michalak\Desktop\OKE2018 Challenge - Task 2\OKE2018 Challenge - Task 2\obj\Debug\OKE2018 Challenge - Task 2.pdb
+C:\Users\Konrad\Documents\Github\GKKM-OKE18ChallengeTask2\Parser App\OKE2018 Challenge - Task 2\bin\Debug\OKE2018 Challenge - Task 2.exe.config
+C:\Users\Konrad\Documents\Github\GKKM-OKE18ChallengeTask2\Parser App\OKE2018 Challenge - Task 2\bin\Debug\OKE2018 Challenge - Task 2.exe
+C:\Users\Konrad\Documents\Github\GKKM-OKE18ChallengeTask2\Parser App\OKE2018 Challenge - Task 2\bin\Debug\OKE2018 Challenge - Task 2.pdb
+C:\Users\Konrad\Documents\Github\GKKM-OKE18ChallengeTask2\Parser App\OKE2018 Challenge - Task 2\bin\Debug\Newtonsoft.Json.pdb
+C:\Users\Konrad\Documents\Github\GKKM-OKE18ChallengeTask2\Parser App\OKE2018 Challenge - Task 2\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Konrad\Documents\Github\GKKM-OKE18ChallengeTask2\Parser App\OKE2018 Challenge - Task 2\obj\Debug\OKE2018 Challenge - Task 2.csprojAssemblyReference.cache
+C:\Users\Konrad\Documents\Github\GKKM-OKE18ChallengeTask2\Parser App\OKE2018 Challenge - Task 2\obj\Debug\OKE2018_Challenge___Task_2.Main_Form.resources
+C:\Users\Konrad\Documents\Github\GKKM-OKE18ChallengeTask2\Parser App\OKE2018 Challenge - Task 2\obj\Debug\OKE2018_Challenge___Task_2.Properties.Resources.resources
+C:\Users\Konrad\Documents\Github\GKKM-OKE18ChallengeTask2\Parser App\OKE2018 Challenge - Task 2\obj\Debug\OKE2018 Challenge - Task 2.csproj.GenerateResource.cache
+C:\Users\Konrad\Documents\Github\GKKM-OKE18ChallengeTask2\Parser App\OKE2018 Challenge - Task 2\obj\Debug\OKE2018 Challenge - Task 2.csproj.CoreCompileInputs.cache
+C:\Users\Konrad\Documents\Github\GKKM-OKE18ChallengeTask2\Parser App\OKE2018 Challenge - Task 2\obj\Debug\OKE2018 Challenge - Task 2.csproj.CopyComplete
+C:\Users\Konrad\Documents\Github\GKKM-OKE18ChallengeTask2\Parser App\OKE2018 Challenge - Task 2\obj\Debug\OKE2018 Challenge - Task 2.exe
+C:\Users\Konrad\Documents\Github\GKKM-OKE18ChallengeTask2\Parser App\OKE2018 Challenge - Task 2\obj\Debug\OKE2018 Challenge - Task 2.pdb

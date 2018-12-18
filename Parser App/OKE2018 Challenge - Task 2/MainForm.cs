@@ -26,28 +26,8 @@ namespace OKE2018_Challenge___Task_2
         private void Btn_Parse_Click(object sender, EventArgs e)
         {
 
-            //// Loading english PCFG parser from file
-            //var lp = LexicalizedParser.loadModel(Environment.CurrentDirectory + @"\englishPCFG.ser");
-
-            //// This option shows loading and using an explicit tokenizer
             var sent2 = InputTextBox.Text;
-            //var tokenizerFactory = PTBTokenizer.factory(new CoreLabelTokenFactory(), "");
-            //var sent2Reader = new StringReader(sent2);
-            //var rawWords2 = tokenizerFactory.getTokenizer(sent2Reader).tokenize();
-            //sent2Reader.close();
-            //var tree2 = lp.apply(rawWords2);
 
-            //// Extract dependencies from lexical tree
-            //var tlp = new PennTreebankLanguagePack();
-            //var gsf = tlp.grammaticalStructureFactory();
-            //var gs = gsf.newGrammaticalStructure(tree2);
-            //var tdl = gs.typedDependenciesCCprocessed();
-            //Console.WriteLine("\n{0}\n", tdl);
-            ////OutputTextbox.Text = tdl.ToString();
-
-            //// Extract collapsed dependencies from parsed tree
-            //var tp = new TreePrint("penn,typedDependenciesCollapsed");
-            //tp.printTree(tree2);
             ParserController parser = new ParserController();
             var jsons = parser.Parse(sent2).ToArray();
             OutputTextbox.Text = jsons[0];
@@ -55,28 +35,111 @@ namespace OKE2018_Challenge___Task_2
 
         private void Btn_FileOpen_Click(object sender, EventArgs e)
         {
-            var fileContent = string.Empty;
-            var filePath = string.Empty;
+            Sentence sentence = new Sentence("", "", "", 1, 2, "", "");
 
-            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            String fileContent, filePath, filextension;
+            fileContent = filePath = filextension = String.Empty;
+            try
             {
-                openFileDialog.InitialDirectory = Environment.CurrentDirectory;
-                openFileDialog.Filter = "txt files (*.txt)|*.txt|rdf files(*.rdf)|*.rdf|All files (*.*)|*.*";
-                openFileDialog.FilterIndex = 2;
-                openFileDialog.RestoreDirectory = true;
-
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                using (OpenFileDialog openFileDialog = new OpenFileDialog())
                 {
-                    filePath = openFileDialog.FileName;
-                    var fileStream = openFileDialog.OpenFile();
+                    openFileDialog.InitialDirectory = Environment.CurrentDirectory;
+                    openFileDialog.Filter = "txt files (*.txt)|*.txt|ttl files (*.ttl)|*.ttl|rdf files(*.rdf)|*.rdf|xml files(*.xml)|*.xml|All files (*.*)|*.*";
+                    openFileDialog.FilterIndex = 2;
+                    openFileDialog.RestoreDirectory = true;
 
-                    using (System.IO.StreamReader reader = new System.IO.StreamReader(fileStream))
+                    if (openFileDialog.ShowDialog() == DialogResult.OK)
                     {
-                        fileContent = reader.ReadToEnd();
+                        filextension = System.IO.Path.GetExtension(openFileDialog.FileName);
+                        filePath = openFileDialog.FileName;
+                        var fileStream = openFileDialog.OpenFile();
+
+                        using (System.IO.StreamReader reader = new System.IO.StreamReader(fileStream))
+                        {
+                            switch (filextension)
+                            {
+                                case ".txt":
+                                    fileContent = reader.ReadToEnd();
+                                    break;
+                                case ".rdf":
+                                    fileContent = File_Parse(reader.ReadToEnd());
+                                    break;
+                                case ".ttl":
+                                    fileContent = File_Parse(reader.ReadToEnd());
+                                    break;
+                                case ".xml":
+                                    fileContent = File_Parse(reader.ReadToEnd());
+                                    break;
+                                default:
+                                    MessageBox.Show("Incorrect file extension.", "Error");
+                                    Btn_FileOpen_Click(sender, e);
+                                    break;
+                            }
+                        }
+
+                        InputTextBox.Text = fileContent;
                     }
                 }
+
             }
-            InputTextBox.Text = fileContent;
+            catch (Exception ex)
+            {
+                MessageBox.Show("Incorrect file content.", "Error");
+                Btn_FileOpen_Click(sender, e);
+            }
+        }
+
+        private String File_Parse(String fileContent)
+        {
+            String isStringStart = "nif:isString";
+            String isStringEnd = "\"^^xsd:string";
+            int parseFrom = fileContent.IndexOf(isStringStart) + isStringStart.Length;
+            int parseTo = fileContent.LastIndexOf(isStringEnd) - parseFrom;
+            String isString = fileContent.Substring(parseFrom, parseTo);
+
+            parseFrom = isString.IndexOf(" \"") + 2;
+            parseTo = isString.Length - parseFrom;
+            isString = isString.Substring(parseFrom, parseTo);
+            return isString;
+        }
+
+        public class Sentence
+        {
+            /// <summary>
+            /// <http://www.ontologydesignpatterns.org/data/oke-challenge-2017/task-1/sentence-28#char=303,320>
+            /// </summary>
+            public String uri;
+            /// <summary>
+            ///  nif:RFC5147String , nif:String , nif:Phrase ;
+            /// </summary>
+            public String a;
+            /// <summary>
+            /// "Captain Boomerang"^^xsd:string ;
+            /// </summary>
+            public String anchorOf;
+            /// <summary>
+            /// "303"^^xsd:nonNegativeInteger ;
+            /// </summary>
+            public String beginIndex;
+            /// <summary>
+            /// "320"^^xsd:nonNegativeInteger ;
+            /// </summary>
+            public String endIndex;
+            /// <summary>
+            /// <http://www.ontologydesignpatterns.org/data/oke-challenge-2017/task-1/sentence-28#char=0,472> ;
+            /// </summary>
+            public String referenceContext;
+            /// <summary>
+            /// <http://dbpedia.org/resource/Captain_Boomerang> .
+            /// </summary>
+            public String taIdentRef;
+
+            public Sentence(String uri, String a, String anchorOf, int beginIndex, int endIndex, String referenceContext, String taIdentRef)
+            {
+                StringBuilder sb = new StringBuilder();
+                this.beginIndex = sb.Append("\"").Append(beginIndex).Append("\"^^xsd:nonNegativeInteger ;").ToString();
+                this.endIndex = sb.Clear().Append("\"").ToString();
+            }
         }
     }
 }
