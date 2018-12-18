@@ -4,7 +4,7 @@ import os
 import json
 import pycrfsuite
 
-from CRFModule.crftools.databuilder import word2features2predict
+from crftools.databuilder import word2features2predict
 
 # set up flask
 main = flask.Blueprint('main', __name__)
@@ -30,9 +30,10 @@ def reload_mode():
     return json.dumps(str(json_response)), 200
 
 
-@main.route("/crf/predict", methods=["GET"])
+@main.route("/crf/predict", methods=['GET', 'POST'])
 def get_tags():
     json_body = flask.request.get_json()
+    print(json_body)
     # json_dict = json.loads(json_body)
     # print(json_dict)
 
