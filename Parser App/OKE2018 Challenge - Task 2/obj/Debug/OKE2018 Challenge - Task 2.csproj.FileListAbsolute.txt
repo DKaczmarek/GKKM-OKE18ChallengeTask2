@@ -108,3 +108,11 @@ C:\Users\Michal\Documents\GitHub\GKKM-OKE18ChallengeTask2\Parser App\OKE2018 Cha
 C:\Users\Michal\Documents\GitHub\GKKM-OKE18ChallengeTask2\Parser App\OKE2018 Challenge - Task 2\obj\Debug\OKE2018 Challenge - Task 2.csproj.CopyComplete
 C:\Users\Michal\Documents\GitHub\GKKM-OKE18ChallengeTask2\Parser App\OKE2018 Challenge - Task 2\obj\Debug\OKE2018 Challenge - Task 2.exe
 C:\Users\Michal\Documents\GitHub\GKKM-OKE18ChallengeTask2\Parser App\OKE2018 Challenge - Task 2\obj\Debug\OKE2018 Challenge - Task 2.pdb
+C:\Users\Michal\Documents\GitHub\GKKM-OKE18ChallengeTask2\Parser App\OKE2018 Challenge - Task 2\bin\Debug\dotNetRDF.dll
+C:\Users\Michal\Documents\GitHub\GKKM-OKE18ChallengeTask2\Parser App\OKE2018 Challenge - Task 2\bin\Debug\HtmlAgilityPack.dll
+C:\Users\Michal\Documents\GitHub\GKKM-OKE18ChallengeTask2\Parser App\OKE2018 Challenge - Task 2\bin\Debug\VDS.Common.dll
+C:\Users\Michal\Documents\GitHub\GKKM-OKE18ChallengeTask2\Parser App\OKE2018 Challenge - Task 2\bin\Debug\dotNetRDF.xml
+C:\Users\Michal\Documents\GitHub\GKKM-OKE18ChallengeTask2\Parser App\OKE2018 Challenge - Task 2\bin\Debug\HtmlAgilityPack.pdb
+C:\Users\Michal\Documents\GitHub\GKKM-OKE18ChallengeTask2\Parser App\OKE2018 Challenge - Task 2\bin\Debug\HtmlAgilityPack.xml
+C:\Users\Michal\Documents\GitHub\GKKM-OKE18ChallengeTask2\Parser App\OKE2018 Challenge - Task 2\bin\Debug\VDS.Common.pdb
+C:\Users\Michal\Documents\GitHub\GKKM-OKE18ChallengeTask2\Parser App\OKE2018 Challenge - Task 2\bin\Debug\VDS.Common.xml

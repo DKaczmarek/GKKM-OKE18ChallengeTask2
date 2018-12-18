@@ -35,48 +35,8 @@ namespace OKE2018_Challenge___Task_2
 
             ParserController parser = new ParserController();
             var jsons = parser.Parse(sent2).ToArray();
-            async Task<string> Internet(string json)
-            {
-                var httpClient = new HttpClient();
-                var content = new StringContent(json, Encoding.UTF8, "application/json");
-
-                var result = httpClient.PostAsync("http://localhost:17011/crf/predict", content).Result;
-
-                result.EnsureSuccessStatusCode();
-
-                string content_back = await result.Content.ReadAsStringAsync();
-
-                content_back = content_back.Replace("\"", string.Empty);
-                JObject JsonResult = JObject.Parse(content_back);
-                string word ="";
-                string label = "";
-                foreach (JProperty x in (JToken)JsonResult)
-                {
-                    string name = x.Name;
-                    JToken value = x.Value;
-                    string word_this = value["word"].Value<string>();
-                    if (name == "0")
-                    {
-                        word = word_this;
-                        string label_this = value["label"].Value<string>();
-                        if (label_this == "O"){ label = label_this; }
-                        else {label=label_this.Replace("I-", string.Empty); }
-
-                    }
-                    else word =word + "_" + word_this;
-                    
-                    
-                }
-
-
-                //  JObject jsonObject = JObject.Parse(content2);
-                //string a = jsonObject["word"].ToString();
-                OutputTextbox.Text = content_back;
-                return content_back;
-            }
-
-            for (int i = 0; i < jsons.Length; i++) { var a = Internet(jsons[i]); }
-
+            Communication communication = new Communication(jsons);
+            communication.Communicate();
 
 
         }
