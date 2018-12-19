@@ -21,7 +21,7 @@ namespace OKE2018_Challenge___Task_2
 {
     public partial class Main_Form : Form
     {
-        Context context;
+        private Context context;
 
         public Main_Form()
         {
@@ -37,8 +37,6 @@ namespace OKE2018_Challenge___Task_2
             var jsons = parser.Parse(sent2).ToArray();
             Communication communication = new Communication(jsons);
             communication.Communicate();
-
-
         }
 
 
@@ -87,8 +85,6 @@ namespace OKE2018_Challenge___Task_2
             catch (Exception ex)
             {
                 MessageBox.Show("Incorrect file content.", "Error");
-                InputTextBox.Text = null;
-                BtnSaveResults.Enabled = false;
             }
         }
 
@@ -96,18 +92,31 @@ namespace OKE2018_Challenge___Task_2
         {
             try
             {
-                Phrase phrase1 = new Phrase(context, "test1", 2, 12, "www.dbpedia.org/test1");
-                Phrase phrase2 = new Phrase(context, "test2", 15, 29, "www.dbpedia.org/test2");
-
-                List<Phrase> phrases = new List<Phrase>()
+                if (InputTextBox.Text.Length > 0)
                 {
-                    phrase1,phrase2
-                };
+                    if (context == null)
+                    {
+                        context = new Context(InputTextBox.Text);
+                    }
+                    context.CreateOryginalInput();
+                    Phrase phrase1 = new Phrase(context, "test1", 2, 12, "www.dbpedia.org/test1");
+                    Phrase phrase2 = new Phrase(context, "test2", 15, 29, "www.dbpedia.org/test2");
 
-                String output = FileBuilder.BuildOutput(context, phrases);
-                using (System.IO.StreamWriter outputFile = new System.IO.StreamWriter(System.IO.Path.Combine(Environment.CurrentDirectory, "ExampleOutput.ttl")))
+                    List<Phrase> phrases = new List<Phrase>()
+                    {
+                        phrase1,phrase2
+                    };
+
+                    String output = FileBuilder.BuildOutput(context, phrases);
+                    using (System.IO.StreamWriter outputFile = new System.IO.StreamWriter(System.IO.Path.Combine(Environment.CurrentDirectory, "ExampleOutput.ttl")))
+                    {
+                        outputFile.WriteLine(output);
+                        context = null;
+                    }
+                }
+                else
                 {
-                    outputFile.WriteLine(output);
+                    MessageBox.Show("No input message");
                 }
             }
             catch(Exception ex)

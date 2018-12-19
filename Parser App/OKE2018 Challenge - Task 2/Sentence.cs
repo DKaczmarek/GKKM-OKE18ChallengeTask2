@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Text;
+
 namespace OKE2018_Challenge___Task_2
 {
     public abstract class Sentence
@@ -21,6 +23,21 @@ namespace OKE2018_Challenge___Task_2
         public String isString;
         /// <summary> Create Context from row text </summary>
         /// <param name="text">Row text</param>
+        /// 
+
+        public void CreateOryginalInput()
+        {
+            oryginalInput = "@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n" +
+            "@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .\n" +
+            "@prefix itsrdf: <http://www.w3.org/2005/11/its/rdf#> .\n" +
+            "@prefix nif:   <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#> .\n" +
+            "@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .\n\n<" + uri + ">\n" +
+            "\t\t" + "a" + "\t\t\t\t" + a + "\n" +
+            "\t\t" + "nif:beginIndex" + "\t\"" + beginIndex + "\"^^xsd:nonNegativeInteger ;\n" +
+            "\t\t" + "nif:endIndex" + "\t\"" + endIndex + "\"^^xsd:nonNegativeInteger ; \n" +
+            "\t\t" + "nif:isString" + "\t\"" + isString + "\"^^xsd:string .\n";
+
+        }
         public Context(String text)
         {
             isString = text;
@@ -36,21 +53,26 @@ namespace OKE2018_Challenge___Task_2
             //Get file content
             String fileContent = reader.ReadToEnd();
 
-            //OryginalInput
-            oryginalInput = fileContent;
-
             //Uri
             String start = "<http://www.ontologydesignpatterns.org";
-            String end = ">\n";
-            uri = fileContent.Substring(fileContent.IndexOf(start) + 1, fileContent.LastIndexOf(end) - fileContent.IndexOf(start) - 1);
+            String end = ">\r";
+      
+            int stIndex = fileContent.IndexOf(start);
+            int enIndex = fileContent.IndexOf(end);
+            if (enIndex == -1)
+            {
+                enIndex = fileContent.IndexOf(">\n");
+            }
+
+            uri = fileContent.Substring(stIndex + 1, enIndex - stIndex -1);
 
             //a
             a = "nif:RFC5147String , nif:String , nif:Context ;";
             //beginIndex
             start = "nif:beginIndex  \"";
             end = "\"^^xsd:nonNegativeInteger ;";
-            int stIndex = fileContent.IndexOf(start) + start.Length;
-            int enIndex = fileContent.IndexOf(end);
+            stIndex = fileContent.IndexOf(start) + start.Length;
+            enIndex = fileContent.IndexOf(end);
             beginIndex = Convert.ToInt32(fileContent.Substring(stIndex, enIndex - stIndex));
 
             //endIndex
