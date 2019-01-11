@@ -84,6 +84,7 @@ namespace OKE2018_Challenge___Task_2
             //isString
             start = "nif:isString";
             end = "\"^^xsd:string";
+
 			string end2 = "@en";
             stIndex = fileContent.IndexOf(start) + start.Length;
             if (fileContent.LastIndexOf(end) != -1)
@@ -93,6 +94,9 @@ namespace OKE2018_Challenge___Task_2
             else {
                 enIndex = fileContent.LastIndexOf(end2) - stIndex;
             }
+
+            stIndex = fileContent.IndexOf(start) + start.Length;
+
             isString = fileContent.Substring(stIndex, enIndex);
             stIndex = isString.IndexOf(" \"") + 2;
             enIndex = isString.Length - stIndex;
