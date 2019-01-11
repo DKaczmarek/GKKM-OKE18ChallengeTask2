@@ -1,0 +1,4 @@
+http://dbpedia.org/resource/Hyundai_Motor_Company Agent
+http://dbpedia.org/resource/Kia_Motors Agent
+http://aksw.org/notInWiki/SUV Place
+http://aksw.org/notInWiki/Genesis_G70 UNE

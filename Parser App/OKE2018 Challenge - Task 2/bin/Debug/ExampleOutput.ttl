@@ -1,30 +1,17 @@
-@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
-@prefix itsrdf: <http://www.w3.org/2005/11/its/rdf#> .
-@prefix nif:   <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#> .
-@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
 
-<http://www.ontologydesignpatterns.org/data/oke-challenge-2017/task-2/sentence-10#char=0,332>
-        a               nif:RFC5147String , nif:String , nif:Context ;
-        nif:beginIndex  "0"^^xsd:nonNegativeInteger ;
-        nif:endIndex    "332"^^xsd:nonNegativeInteger ;
-        nif:isString    "So-called Islamic State (IS) has released a video online which claims to show two captured Turkish soldiers being burned alive. IS said they were killed in revenge for Turkish killing of Muslims. Turkey launched a campaign against IS in northern Syria in August and is currently fighting IS around the group's stronghold of al-Bab. "^^xsd:string .
-
-		
-
-<http://www.ontologydesignpatterns.org/data/oke-challenge-2017/task-2/sentence-10#char=2,12>
+<http://www.ontologydesignpatterns.org/data/oke-challenge-2017/task-2/sentence-1#char=2,12>
 		a						nif:RFC5147String , nif:String , nif:Phrase ;
 		nif:anchorOf			"test1"^^xsd:string ;
 		nif:beginIndex			"2"^^xsd:nonNegativeInteger ;
 		nif:endIndex			"12"^^xsd:nonNegativeInteger ;
-		nif:referenceContext	<http://www.ontologydesignpatterns.org/data/oke-challenge-2017/task-2/sentence-10#char=0,332> ;
+		nif:referenceContext	<http://www.ontologydesignpatterns.org/data/oke-challenge-2017/task-2/sentence-1#char=0,145> ;
 		itsrdf:taIdentRef		<www.dbpedia.org/test1> .
 
-<http://www.ontologydesignpatterns.org/data/oke-challenge-2017/task-2/sentence-10#char=15,29>
+<http://www.ontologydesignpatterns.org/data/oke-challenge-2017/task-2/sentence-1#char=15,29>
 		a						nif:RFC5147String , nif:String , nif:Phrase ;
 		nif:anchorOf			"test2"^^xsd:string ;
 		nif:beginIndex			"15"^^xsd:nonNegativeInteger ;
 		nif:endIndex			"29"^^xsd:nonNegativeInteger ;
-		nif:referenceContext	<http://www.ontologydesignpatterns.org/data/oke-challenge-2017/task-2/sentence-10#char=0,332> ;
+		nif:referenceContext	<http://www.ontologydesignpatterns.org/data/oke-challenge-2017/task-2/sentence-1#char=0,145> ;
 		itsrdf:taIdentRef		<www.dbpedia.org/test2> .
 

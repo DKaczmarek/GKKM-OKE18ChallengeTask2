@@ -31,4 +31,13 @@ namespace OKE2018_Challenge___Task_2
         public wordBefore wordBefore;
         public wordAfter wordAfter;
     }
+
+    class JSON_entity
+    {
+        public string name;
+        public int begin_index;
+        public int end_index;
+        public string label;
+        public string link;
+    }
 }

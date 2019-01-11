@@ -38,6 +38,7 @@ def get_tags():
     # print(json_dict)
 
     json_response = prepare_samples(json_body)
+    print(json_response)
     return json.dumps(str(json_response)), 200
 
 

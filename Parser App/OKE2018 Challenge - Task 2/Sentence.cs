@@ -40,7 +40,7 @@ namespace OKE2018_Challenge___Task_2
             oryginalInput = fileContent;
 
             //Uri
-            String start = "<http://www.ontologydesignpatterns.org";
+            String start = "http://www.ontologydesignpatterns.org";
             String end = ">\n";
             uri = fileContent.Substring(fileContent.IndexOf(start) + 1, fileContent.LastIndexOf(end) - fileContent.IndexOf(start) - 1);
 

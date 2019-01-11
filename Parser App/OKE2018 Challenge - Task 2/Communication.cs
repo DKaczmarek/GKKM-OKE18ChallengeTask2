@@ -22,16 +22,17 @@ namespace OKE2018_Challenge___Task_2
         {
             for (int i = 0; i < jsons.Length; i++)
             {
-                string[] a = await Internet(jsons[i]);
-                if (a.Length == 2)
+                JSON_entity js = await Internet(jsons[i]);
+                if (js.label != "O")
                 {
-                    SPARQL sparql = new SPARQL(a[0], a[1]);
+                    
+                    SPARQL sparql = new SPARQL(js);
                     sparql.ask();
                 }
             }
         }
 
-        async Task<string[]> Internet(string json)
+        async Task<JSON_entity> Internet(string json)
         {
             var httpClient = new HttpClient();
             var content = new StringContent(json, Encoding.UTF8, "application/json");
@@ -46,6 +47,7 @@ namespace OKE2018_Challenge___Task_2
             JObject JsonResult = JObject.Parse(content_back);
             string word = "";
             string label = "";
+            JSON_entity js = new JSON_entity();
             foreach (JProperty x in (JToken)JsonResult)
             {
                 string name = x.Name;
@@ -53,25 +55,35 @@ namespace OKE2018_Challenge___Task_2
                 string word_this = value["word"].Value<string>();
                 if (name == "0")
                 {
+                    int begin = value["begin"].Value<int>();
+                    js.begin_index = begin;
+                    if (name == (JsonResult.Count - 1).ToString())
+                    {
+                        int end = value["end"].Value<int>();
+                        js.end_index = end;
+                        js.name = word_this;
+                    }
                     word = word_this;
                     string label_this = value["label"].Value<string>();
-                    if (label_this == "O") { label = label_this; }
-                    else { label = label_this.Replace("I-", string.Empty); }
+                    if (label_this == "O") { label = label_this; js.label = label; }
+                    else { label = label_this.Replace("I-", string.Empty); label = label.Replace("O-", string.Empty); js.label = label; }
 
                 }
-                else word = word + " " + word_this;
+                else
+                {
+                    word = word + " " + word_this;
+                    js.name = word;
+                    if (name == (JsonResult.Count - 1).ToString())
+                    {
+                        int end = value["end"].Value<int>();
+                        js.end_index = end;
+                    }
+                }
 
 
             }
-            var pomList = new List<string>();
 
-            // Add items to the list
-            pomList.Add(word);
-            if(label != "O")pomList.Add(label);
-
-            // Convert to array
-            var return_s = pomList.ToArray();
-            return return_s;
+            return js;
         }
 
             
