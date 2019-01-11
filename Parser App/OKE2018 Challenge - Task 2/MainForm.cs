@@ -30,13 +30,16 @@ namespace OKE2018_Challenge___Task_2
 
         private void Btn_Parse_Click(object sender, EventArgs e)
         {
-
+            if (context == null) {
+                context = new Context(InputTextBox.Text);
+            }
+            context.CreateOryginalInput();
             var sent2 = InputTextBox.Text;
 
             ParserController parser = new ParserController();
             var jsons = parser.Parse(sent2).ToArray();
             Communication communication = new Communication(jsons);
-            communication.Communicate();
+            communication.Communicate(context);
         }
 
 

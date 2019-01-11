@@ -18,8 +18,9 @@ namespace OKE2018_Challenge___Task_2
             this.jsons = js;
         }
 
-        async public void Communicate()
+        async public void Communicate(Context context)
         {
+            List<Phrase> phrases = new List<Phrase>();
             for (int i = 0; i < jsons.Length; i++)
             {
                 JSON_entity js = await Internet(jsons[i]);
@@ -27,8 +28,20 @@ namespace OKE2018_Challenge___Task_2
                 {
                     
                     SPARQL sparql = new SPARQL(js);
-                    sparql.ask();
+                    phrases.Add(sparql.ask(context));
                 }
+            }
+            SaveResults(context, phrases);
+        }
+
+        public void SaveResults(Context context, List<Phrase> phrases)
+        {
+            String output = FileBuilder.BuildOutput(context, phrases);
+
+            using(System.IO.StreamWriter outputFile = new System.IO.StreamWriter(System.IO.Path.Combine(Environment.CurrentDirectory, "ExampleOutput.ttl")))
+            {
+                outputFile.WriteLine(output);
+                context = null;
             }
         }
 

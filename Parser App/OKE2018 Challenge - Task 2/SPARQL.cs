@@ -17,24 +17,22 @@ namespace OKE2018_Challenge___Task_2
             this.js = js_e;
         }
 
-        public void ask()
+        public Phrase ask(Context context)
         {
+            Phrase phrase = null;
             SparqlRemoteEndpoint endpoint = new SparqlRemoteEndpoint(new Uri("http://dbpedia.org/sparql"), "http://dbpedia.org");
             SparqlResultSet results = endpoint.QueryWithResultSet(@"SELECT ?x WHERE { ?x a dbo:" + js.label + @". ?x rdfs:label ?name . FILTER regex(str(?name), ""^" + js.name + @"$"")}LIMIT 1");
             foreach (SparqlResult result in results)
             {
                 string res = result.ToString();
                 res = res.Replace("?x = ", string.Empty);
-                Phrase phrase1 = new Phrase(context, js.name, js.begin_index, js.end_index, res);
-                String output = FileBuilder.BuildOutput(context, phrase1);
-                File.AppendAllText(@"C:\Users\Michal\Documents\GitHub\GKKM-OKE18ChallengeTask2\Parser App\OKE2018 Challenge - Task 2\bin\Debug\SPARQLoutput\test.txt", res + " " +js.label + Environment.NewLine);
+                phrase = new Phrase(context, js.name, js.begin_index, js.end_index, res);
             }
             if (results.LongCount() == 0) {
                 js.name = js.name.Replace(" ", "_");
-                Phrase phrase1 = new Phrase(context, js.name, js.begin_index, js.end_index, "http://aksw.org/notInWiki/" + js.name);
-                String output = FileBuilder.BuildOutput(context, phrase1);
-                File.AppendAllText(@"C:\Users\Michal\Documents\GitHub\GKKM-OKE18ChallengeTask2\Parser App\OKE2018 Challenge - Task 2\bin\Debug\SPARQLoutput\test.txt", "http://aksw.org/notInWiki/" + js.name + " "+ js.label + Environment.NewLine);
+                phrase = new Phrase(context, js.name, js.begin_index, js.end_index, "http://aksw.org/notInWiki/" + js.name);
         }
+            return phrase;
         }
     }
 }

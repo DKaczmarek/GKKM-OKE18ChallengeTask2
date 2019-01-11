@@ -122,3 +122,4 @@ C:\Users\Konrad\Documents\Github\GKKM-OKE18ChallengeTask2\Parser App\OKE2018 Cha
 C:\Users\Konrad\Documents\Github\GKKM-OKE18ChallengeTask2\Parser App\OKE2018 Challenge - Task 2\bin\Debug\VDS.Common.pdb
 C:\Users\Konrad\Documents\Github\GKKM-OKE18ChallengeTask2\Parser App\OKE2018 Challenge - Task 2\bin\Debug\VDS.Common.xml
 C:\Users\Konrad\Documents\Github\GKKM-OKE18ChallengeTask2\Parser App\OKE2018 Challenge - Task 2\obj\Debug\OKE2018 Challenge - Task 2.exe.config
+C:\Users\Michal\Documents\GitHub\GKKM-OKE18ChallengeTask2\Parser App\OKE2018 Challenge - Task 2\obj\Debug\OKE2018 Challenge - Task 2.exe.config
